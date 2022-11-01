@@ -1,0 +1,42 @@
+﻿@using MvcStok.Models.Entity
+@model List<tbl_Musteriler>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@using (Html.BeginForm("Index", "Musteri", FormMethod.Get))
+            {
+                <p> <b>Ara</b> : @Html.TextBox("p") 
+                <input type="submit" value="Ara" />
+                </p>
+            }
+
+<table class="table table-bordered">
+    <tr>
+        <th>MÜŞTERİ ID</th>
+        <th>MÜŞTERİ ADI</th>
+        <th>MÜŞTERİ SOYADI</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+        <th>ALERT SİL</th>
+    </tr>
+    <tbody>
+        @foreach (var musteri in Model)
+        {
+            <tr>
+                <th>@musteri.MusteriID</th>
+                <td>@musteri.MusteriAd</td>
+                <td>@musteri.MusteriSoyad</td>
+                <td><a href="/Musteri/Sil/@musteri.MusteriID" class="btn btn-danger"><i class="fa fa-trash"></i> </a> </td>
+                <td><a href="/Musteri/MusteriGetir/@musteri.MusteriID/" class="btn btn-success"><i class="fa fa-refresh"> </i> </a> </td>
+                <td>@Html.ActionLink("SİL", "Sil", new { id=musteri.MusteriID }, new { @class = "btn btn-warning", onclick = "return confirm('Gerçekten Silmek İstiyor Musunuz?')"})</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<a href="/Musteri/YeniMusteri/" class="btn btn-primary"> YENİ MÜŞTERİ EKLE </a>
+
